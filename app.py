@@ -5,10 +5,8 @@ from PIL import Image
 import gradio as gr
 import numpy as np
 import random
-import spaces
 
 
-@spaces.GPU
 def start_tryon(imgs, garm_img, garment_des, seed):
     
     return None
@@ -57,11 +55,11 @@ with gr.Blocks(css=css) as Tryon:
             garm_img = gr.Image(label="Garment image", sources='upload', type="pil")
             example = gr.Examples(
                 inputs=garm_img,
-                examples_per_page=8,
+                examples_per_page=10,
                 examples=garm_list_path)
         with gr.Column():
-            image_out = gr.Image(label="Output", elem_id="output-img",show_share_button=False)
-            try_button = gr.Button(value="Try-on")
+            image_out = gr.Image(label="Output", show_share_button=False)
+            try_button = gr.Button(value="Try-on", elem_id="button")
 
 
     with gr.Column():
