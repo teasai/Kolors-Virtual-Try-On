@@ -5,14 +5,17 @@ from PIL import Image
 import gradio as gr
 import numpy as np
 import random
+import spaces
 
-example_path = os.path.join(os.path.dirname(__file__), 'assets')
 
-MAX_SEED = 999999
-
+@spaces.GPU
 def start_tryon(imgs, garm_img, garment_des, seed):
     
     return None
+
+MAX_SEED = 999999
+
+example_path = os.path.join(os.path.dirname(__file__), 'assets')
 
 garm_list = os.listdir(os.path.join(example_path,"cloth"))
 garm_list_path = [os.path.join(example_path,"cloth",garm) for garm in garm_list]
@@ -63,8 +66,14 @@ with gr.Blocks(css=css) as Tryon:
 
     with gr.Column():
         with gr.Accordion(label="Advanced Settings", open=False):
-            with gr.Row():
-                seed = gr.Number(label="Seed", minimum=-1, maximum=2147483647, step=1, value=None)
+            seed = gr.Slider(
+                    label="Seed",
+                    minimum=0,
+                    maximum=MAX_SEED,
+                    step=1,
+                    value=0,
+                )
+            randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed], outputs=[image_out], api_name='tryon')
 

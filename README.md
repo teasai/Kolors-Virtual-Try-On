@@ -1,6 +1,6 @@
 ---
-title: Kolors Tryon
-emoji: 🖼
+title: Kolors Visual Tryon
+emoji: 👕
 colorFrom: purple
 colorTo: gray
 sdk: gradio
