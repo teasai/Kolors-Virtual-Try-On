@@ -5,3 +5,4 @@ torch
 transformers
 xformers
 opencv-python
+requests

@@ -5,6 +5,7 @@ import gradio as gr
 import numpy as np
 import random
 import base64
+import requests
 
 
 def start_tryon(person_img, garment_img, seed, randomize_seed):
@@ -82,4 +83,6 @@ with gr.Blocks(css=css) as Tryon:
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used], api_name='tryon')
 
+ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
+print("ip address alibaba", ip)
 Tryon.queue(max_size=10).launch()
