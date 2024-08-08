@@ -6,3 +6,4 @@ transformers
 xformers
 opencv-python
 requests
+json
