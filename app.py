@@ -1,146 +1,71 @@
+import sys
+import os
+import io
+from PIL import Image
 import gradio as gr
 import numpy as np
 import random
-from diffusers import DiffusionPipeline
-import torch
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+example_path = os.path.join(os.path.dirname(__file__), 'assets')
 
-if torch.cuda.is_available():
-    torch.cuda.max_memory_allocated(device=device)
-    pipe = DiffusionPipeline.from_pretrained("stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16", use_safetensors=True)
-    pipe.enable_xformers_memory_efficient_attention()
-    pipe = pipe.to(device)
-else: 
-    pipe = DiffusionPipeline.from_pretrained("stabilityai/sdxl-turbo", use_safetensors=True)
-    pipe = pipe.to(device)
+MAX_SEED = 999999
 
-MAX_SEED = np.iinfo(np.int32).max
-MAX_IMAGE_SIZE = 1024
-
-def infer(prompt, negative_prompt, seed, randomize_seed, width, height, guidance_scale, num_inference_steps):
-
-    if randomize_seed:
-        seed = random.randint(0, MAX_SEED)
-        
-    generator = torch.Generator().manual_seed(seed)
+def start_tryon(imgs, garm_img, garment_des, seed):
     
-    image = pipe(
-        prompt = prompt, 
-        negative_prompt = negative_prompt,
-        guidance_scale = guidance_scale, 
-        num_inference_steps = num_inference_steps, 
-        width = width, 
-        height = height,
-        generator = generator
-    ).images[0] 
-    
-    return image
+    return None
 
-examples = [
-    "Astronaut in a jungle, cold color palette, muted colors, detailed, 8k",
-    "An astronaut riding a green horse",
-    "A delicious ceviche cheesecake slice",
-]
+garm_list = os.listdir(os.path.join(example_path,"cloth"))
+garm_list_path = [os.path.join(example_path,"cloth",garm) for garm in garm_list]
+
+human_list = os.listdir(os.path.join(example_path,"human"))
+human_list_path = [os.path.join(example_path,"human",human) for human in human_list]
 
 css="""
-#col-container {
+#col-left {
     margin: 0 auto;
-    max-width: 520px;
+    max-width: 600px;
+}
+#col-right {
+    margin: 0 auto;
+    max-width: 750px;
+}
+#button {
+    color: blue;
 }
 """
 
-if torch.cuda.is_available():
-    power_device = "GPU"
-else:
-    power_device = "CPU"
+def load_description(fp):
+    with open(fp, 'r', encoding='utf-8') as f:
+        content = f.read()
+    return content
 
-with gr.Blocks(css=css) as demo:
-    
-    with gr.Column(elem_id="col-container"):
-        gr.Markdown(f"""
-        # Text-to-Image Gradio Template
-        Currently running on {power_device}.
-        """)
-        
-        with gr.Row():
-            
-            prompt = gr.Text(
-                label="Prompt",
-                show_label=False,
-                max_lines=1,
-                placeholder="Enter your prompt",
-                container=False,
+with gr.Blocks(css=css) as Tryon:
+    gr.HTML(load_description("assets/title.md"))
+    with gr.Row():
+        with gr.Column():
+            imgs = gr.Image(label="Person image", sources='upload', type="pil")
+            # category = gr.Dropdown(label="Garment category", choices=['upper_body', 'lower_body', 'dresses'],  value="upper_body")
+            example = gr.Examples(
+                inputs=imgs,
+                examples_per_page=10,
+                examples=human_list_path
             )
-            
-            run_button = gr.Button("Run", scale=0)
-        
-        result = gr.Image(label="Result", show_label=False)
+        with gr.Column():
+            garm_img = gr.Image(label="Garment image", sources='upload', type="pil")
+            example = gr.Examples(
+                inputs=garm_img,
+                examples_per_page=8,
+                examples=garm_list_path)
+        with gr.Column():
+            image_out = gr.Image(label="Output", elem_id="output-img",show_share_button=False)
+            try_button = gr.Button(value="Try-on")
 
-        with gr.Accordion("Advanced Settings", open=False):
-            
-            negative_prompt = gr.Text(
-                label="Negative prompt",
-                max_lines=1,
-                placeholder="Enter a negative prompt",
-                visible=False,
-            )
-            
-            seed = gr.Slider(
-                label="Seed",
-                minimum=0,
-                maximum=MAX_SEED,
-                step=1,
-                value=0,
-            )
-            
-            randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
-            
+
+    with gr.Column():
+        with gr.Accordion(label="Advanced Settings", open=False):
             with gr.Row():
-                
-                width = gr.Slider(
-                    label="Width",
-                    minimum=256,
-                    maximum=MAX_IMAGE_SIZE,
-                    step=32,
-                    value=512,
-                )
-                
-                height = gr.Slider(
-                    label="Height",
-                    minimum=256,
-                    maximum=MAX_IMAGE_SIZE,
-                    step=32,
-                    value=512,
-                )
-            
-            with gr.Row():
-                
-                guidance_scale = gr.Slider(
-                    label="Guidance scale",
-                    minimum=0.0,
-                    maximum=10.0,
-                    step=0.1,
-                    value=0.0,
-                )
-                
-                num_inference_steps = gr.Slider(
-                    label="Number of inference steps",
-                    minimum=1,
-                    maximum=12,
-                    step=1,
-                    value=2,
-                )
-        
-        gr.Examples(
-            examples = examples,
-            inputs = [prompt]
-        )
+                seed = gr.Number(label="Seed", minimum=-1, maximum=2147483647, step=1, value=None)
 
-    run_button.click(
-        fn = infer,
-        inputs = [prompt, negative_prompt, seed, randomize_seed, width, height, guidance_scale, num_inference_steps],
-        outputs = [result]
-    )
+    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed], outputs=[image_out], api_name='tryon')
 
-demo.queue().launch()
+Tryon.queue(max_size=10).launch()
