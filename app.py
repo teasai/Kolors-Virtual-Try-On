@@ -15,6 +15,10 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     encoded_person_img = base64.b64encode(encoded_person_img).decode('utf-8')
     encoded_garment_img = cv2.imencode('.jpg', garment_img)[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
+
+    url = "http://" + os.environ['tryon_url']
+    token = os.environ['token']
+    print(url, token)    
     
     return person_img, seed
 
@@ -84,5 +88,5 @@ with gr.Blocks(css=css) as Tryon:
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used], api_name='tryon')
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
-print("ip address alibaba", ip)
+print("ip address", ip)
 Tryon.queue(max_size=10).launch()
