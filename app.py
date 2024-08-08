@@ -1,15 +1,21 @@
-import sys
 import os
-import io
+import cv2
 from PIL import Image
 import gradio as gr
 import numpy as np
 import random
+import base64
 
 
-def start_tryon(imgs, garm_img, garment_des, seed):
+def start_tryon(person_img, garment_img, seed, randomize_seed):
+    if randomize_seed:
+        seed = random.randint(0, MAX_SEED)
+    encoded_person_img = cv2.imencode('.jpg', person_img)[1].tobytes()
+    encoded_person_img = base64.b64encode(encoded_person_img).decode('utf-8')
+    encoded_garment_img = cv2.imencode('.jpg', garment_img)[1].tobytes()
+    encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
     
-    return None
+    return person_img, seed
 
 MAX_SEED = 999999
 
@@ -59,6 +65,7 @@ with gr.Blocks(css=css) as Tryon:
                 examples=garm_list_path)
         with gr.Column():
             image_out = gr.Image(label="Output", show_share_button=False)
+            seed_used = gr.Number(label="Seed Used")
             try_button = gr.Button(value="Try-on", elem_id="button")
 
 
@@ -73,6 +80,6 @@ with gr.Blocks(css=css) as Tryon:
                 )
             randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
 
-    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed], outputs=[image_out], api_name='tryon')
+    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used], api_name='tryon')
 
 Tryon.queue(max_size=10).launch()
