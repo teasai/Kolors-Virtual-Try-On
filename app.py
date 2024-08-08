@@ -50,7 +50,7 @@ with gr.Blocks(css=css) as Tryon:
     gr.HTML(load_description("assets/title.md"))
     with gr.Row():
         with gr.Column():
-            imgs = gr.Image(label="Person image", sources='upload', type="pil")
+            imgs = gr.Image(label="Person image", sources='upload', type="numpy")
             # category = gr.Dropdown(label="Garment category", choices=['upper_body', 'lower_body', 'dresses'],  value="upper_body")
             example = gr.Examples(
                 inputs=imgs,
@@ -58,7 +58,7 @@ with gr.Blocks(css=css) as Tryon:
                 examples=human_list_path
             )
         with gr.Column():
-            garm_img = gr.Image(label="Garment image", sources='upload', type="pil")
+            garm_img = gr.Image(label="Garment image", sources='upload', type="numpy")
             example = gr.Examples(
                 inputs=garm_img,
                 examples_per_page=10,
