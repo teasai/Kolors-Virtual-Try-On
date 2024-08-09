@@ -19,7 +19,6 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     url = "http://" + os.environ['tryon_url']
     token = os.environ['token']
-    print(url, token)    
     headers = {'Content-Type': 'application/json', 'token': token}
     data = {
         "clothImage": encoded_garment_img,
@@ -27,15 +26,15 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         "seed": seed
     }
 
-    # response = requests.post(url, headers=headers, data=json.dumps(data))
-    # print("response code", response.status_code)
-    # if response.status_code == 200:
-    #     result = response.json()
-    #     result = base64.b64decode(result['images'][0])
-    #     result_np = np.frombuffer(result, np.uint8)
-    #     result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+    print("response code", response.status_code)
+    if response.status_code == 200:
+        result = response.json()
+        result = base64.b64decode(result['images'][0])
+        result_np = np.frombuffer(result, np.uint8)
+        result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
 
-    result_img = cv2.imdecode(np.frombuffer(base64.b64decode(encoded_person_img), np.uint8), cv2.IMREAD_UNCHANGED)
+    # result_img = cv2.imdecode(np.frombuffer(base64.b64decode(encoded_person_img), np.uint8), cv2.IMREAD_UNCHANGED)
 
     return result_img, seed
 
