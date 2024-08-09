@@ -1,5 +1,5 @@
 ---
-title: Kolors Visual Tryon
+title: Kolors Visual Try-on
 emoji: 👕
 colorFrom: purple
 colorTo: gray

@@ -52,11 +52,15 @@ human_list_path = [os.path.join(example_path,"human",human) for human in human_l
 css="""
 #col-left {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 500px;
+}
+#col-mid {
+    margin: 0 auto;
+    max-width: 500px;
 }
 #col-right {
     margin: 0 auto;
-    max-width: 750px;
+    max-width: 700px;
 }
 #button {
     color: blue;
@@ -71,7 +75,7 @@ def load_description(fp):
 with gr.Blocks(css=css) as Tryon:
     gr.HTML(load_description("assets/title.md"))
     with gr.Row():
-        with gr.Column():
+        with gr.Column(elem_id = "col-left"):
             imgs = gr.Image(label="Person image", sources='upload', type="numpy")
             # category = gr.Dropdown(label="Garment category", choices=['upper_body', 'lower_body', 'dresses'],  value="upper_body")
             example = gr.Examples(
@@ -79,13 +83,13 @@ with gr.Blocks(css=css) as Tryon:
                 examples_per_page=10,
                 examples=human_list_path
             )
-        with gr.Column():
+        with gr.Column(elem_id = "col-mid"):
             garm_img = gr.Image(label="Garment image", sources='upload', type="numpy")
             example = gr.Examples(
                 inputs=garm_img,
                 examples_per_page=10,
                 examples=garm_list_path)
-        with gr.Column():
+        with gr.Column(elem_id = "col-right"):
             image_out = gr.Image(label="Output", show_share_button=False)
             seed_used = gr.Number(label="Seed Used")
             try_button = gr.Button(value="Try-on", elem_id="button")
