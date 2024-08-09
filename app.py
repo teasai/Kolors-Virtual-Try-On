@@ -14,7 +14,6 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         seed = random.randint(0, MAX_SEED)
     encoded_person_img = cv2.imencode('.jpg', cv2.cvtColor(person_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_person_img = base64.b64encode(encoded_person_img).decode('utf-8')
-    print(encoded_person_img)
     encoded_garment_img = cv2.imencode('.jpg', cv2.cvtColor(garment_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
 
@@ -119,10 +118,17 @@ with gr.Blocks(css=css) as Tryon:
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
 
-    # with gr.Row(label="Examples"):
-    #     with gr.Column(elem_id = "col-left"):
-    #         imgs = gr.Image(label="Person image", sources='upload', type="numpy")
-
+    with gr.Row(label="Examples"):
+        image1  = gr.Image(label="model", scale=1, value="examples/model1.png")
+        image2  = gr.Image(label="garment", scale=1, value="examples/garment1.jpg")
+        image3  = gr.Image(label="result", scale=1, value="examples/result1.png")
+    gr.Examples(
+        examples=[
+            ["examples/model1.png", "examples/garment1.png", "examples/result1.png"]
+        ],
+        inputs=[image1, image2, image3],
+        label=None,
+    )
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
