@@ -12,9 +12,9 @@ import json
 def start_tryon(person_img, garment_img, seed, randomize_seed):
     if randomize_seed:
         seed = random.randint(0, MAX_SEED)
-    encoded_person_img = cv2.imencode('.jpg', person_img)[1].tobytes()
+    encoded_person_img = cv2.imencode('.jpg', cv2.cv2Colors(person_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_person_img = base64.b64encode(encoded_person_img).decode('utf-8')
-    encoded_garment_img = cv2.imencode('.jpg', garment_img)[1].tobytes()
+    encoded_garment_img = cv2.imencode('.jpg', cv2.cv2Colors(garment_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
 
     url = "https://" + os.environ['tryon_url']
@@ -38,6 +38,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             result = base64.b64decode(result['result'])
             result_np = np.frombuffer(result, np.uint8)
             result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
+            result_img = cv2.cv2Colors(result_img, cv2.COLOR_RGB2BGR)
             info = "Success"
         else:
             info = "Try again latter"
@@ -116,6 +117,11 @@ with gr.Blocks(css=css) as Tryon:
             randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
+
+    # with gr.Row(label="Examples"):
+    #     with gr.Column(elem_id = "col-left"):
+    #         imgs = gr.Image(label="Person image", sources='upload', type="numpy")
+
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
