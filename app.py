@@ -118,13 +118,14 @@ with gr.Blocks(css=css) as Tryon:
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
 
+    gr.Markdown("## Show Case")
     with gr.Row():
-        image1  = gr.Image(label="model", scale=1, value="examples/model1.png")
-        image2  = gr.Image(label="garment", scale=1, value="examples/garment1.jpg")
-        image3  = gr.Image(label="result", scale=1, value="examples/result1.png")
+        image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png")
+        image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.jpg")
+        image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png")
     gr.Examples(
         examples=[
-            ["examples/model1.png", "examples/garment1.png", "examples/result1.png"]
+            ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"]
         ],
         inputs=[image1, image2, image3],
         label=None,
