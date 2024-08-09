@@ -121,7 +121,7 @@ with gr.Blocks(css=css) as Tryon:
     gr.Markdown("## Show Case")
     with gr.Row():
         image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png")
-        image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.jpg")
+        image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png")
         image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png")
     gr.Examples(
         examples=[
