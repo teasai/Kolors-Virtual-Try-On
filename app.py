@@ -70,6 +70,10 @@ css="""
     margin: 0 auto;
     max-width: 520px;
 }
+#col-showcase {
+    margin: 0 auto;
+    max-width: 900px;
+}
 #button {
     color: blue;
 }
@@ -118,18 +122,25 @@ with gr.Blocks(css=css) as Tryon:
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
 
-    gr.Markdown("## Show Case")
-    with gr.Row():
-        image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png")
-        image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png")
-        image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png")
-    gr.Examples(
-        examples=[
-            ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"]
-        ],
-        inputs=[image1, image2, image3],
-        label=None,
-    )
+    gr.HTML("""
+    <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+        <div>
+    <h1>Show Case</h1>
+        </div>
+    </div>
+    """)
+    with gr.Column(elem_id = "col-showcase"):
+        with gr.Row():
+            image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png")
+            image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png")
+            image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png")
+        gr.Examples(
+            examples=[
+                ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"]
+            ],
+            inputs=[image1, image2, image3],
+            label=None,
+        )
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
