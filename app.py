@@ -19,7 +19,8 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     url = "http://" + os.environ['tryon_url']
     token = os.environ['token']
-    headers = {'Content-Type': 'application/json', 'token': token}
+    cookie = os.environ['Cookie']
+    headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie}
     data = {
         "clothImage": encoded_garment_img,
         "humanImage": encoded_person_img,
@@ -52,15 +53,15 @@ human_list_path = [os.path.join(example_path,"human",human) for human in human_l
 css="""
 #col-left {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 350px;
 }
 #col-mid {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 350px;
 }
 #col-right {
     margin: 0 auto;
-    max-width: 700px;
+    max-width: 600px;
 }
 #button {
     color: blue;
