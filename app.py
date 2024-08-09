@@ -12,9 +12,9 @@ import json
 def start_tryon(person_img, garment_img, seed, randomize_seed):
     if randomize_seed:
         seed = random.randint(0, MAX_SEED)
-    encoded_person_img = cv2.imencode('.jpg', cv2.cv2Colors(person_img, cv2.COLOR_RGB2BGR))[1].tobytes()
+    encoded_person_img = cv2.imencode('.jpg', cv2.cvtColors(person_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_person_img = base64.b64encode(encoded_person_img).decode('utf-8')
-    encoded_garment_img = cv2.imencode('.jpg', cv2.cv2Colors(garment_img, cv2.COLOR_RGB2BGR))[1].tobytes()
+    encoded_garment_img = cv2.imencode('.jpg', cv2.cvtColors(garment_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
 
     url = "https://" + os.environ['tryon_url']
@@ -38,7 +38,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             result = base64.b64decode(result['result'])
             result_np = np.frombuffer(result, np.uint8)
             result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
-            result_img = cv2.cv2Colors(result_img, cv2.COLOR_RGB2BGR)
+            result_img = cv2.cvtColors(result_img, cv2.COLOR_RGB2BGR)
             info = "Success"
         else:
             info = "Try again latter"
