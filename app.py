@@ -20,21 +20,26 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     url = "https://" + os.environ['tryon_url']
     token = os.environ['token']
     cookie = os.environ['Cookie']
+    
     headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie}
     data = {
         "clothImage": encoded_garment_img,
         "humanImage": encoded_person_img,
         "seed": seed
     }
+    # print(url, token, cookie, encoded_garment_imgm, encoded_person_img)
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
     print("response code", response.status_code)
     print("response", response, type(response))
     if response.status_code == 200:
-        result = response.json()
-        result = base64.b64decode(result['images'][0])
-        result_np = np.frombuffer(result, np.uint8)
-        result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
+        result = response.json()['result']
+        print("result", result)
+        status = response['status']
+        if status == "success":
+            result = base64.b64decode(result['result'])
+            result_np = np.frombuffer(result, np.uint8)
+            result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
 
     # result_img = cv2.imdecode(np.frombuffer(base64.b64decode(encoded_person_img), np.uint8), cv2.IMREAD_UNCHANGED)
 
@@ -53,11 +58,11 @@ human_list_path = [os.path.join(example_path,"human",human) for human in human_l
 css="""
 #col-left {
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 380px;
 }
 #col-mid {
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 380px;
 }
 #col-right {
     margin: 0 auto;
