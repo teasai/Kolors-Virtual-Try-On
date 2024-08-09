@@ -17,7 +17,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     encoded_garment_img = cv2.imencode('.jpg', garment_img)[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
 
-    url = "http://" + os.environ['tryon_url']
+    url = "https://" + os.environ['tryon_url']
     token = os.environ['token']
     cookie = os.environ['Cookie']
     headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie}
@@ -29,7 +29,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
     print("response code", response.status_code)
-    print("response", response)
+    print("response", response, type(response))
     if response.status_code == 200:
         result = response.json()
         result = base64.b64decode(result['images'][0])
@@ -53,15 +53,15 @@ human_list_path = [os.path.join(example_path,"human",human) for human in human_l
 css="""
 #col-left {
     margin: 0 auto;
-    max-width: 350px;
+    max-width: 400px;
 }
 #col-mid {
     margin: 0 auto;
-    max-width: 350px;
+    max-width: 400px;
 }
 #col-right {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 580px;
 }
 #button {
     color: blue;
