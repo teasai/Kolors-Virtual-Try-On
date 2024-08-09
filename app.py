@@ -30,6 +30,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
     print("response code", response.status_code)
+    result_img = None
     if response.status_code == 200:
         result = response.json()['result']
         status = result['status']
@@ -37,8 +38,13 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             result = base64.b64decode(result['result'])
             result_np = np.frombuffer(result, np.uint8)
             result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
+            info = "Success"
+        else:
+            info = "Try again latter"
+    else:
+        info = "URL error"
 
-    return result_img, seed
+    return result_img, seed, info
 
 MAX_SEED = 999999
 
@@ -92,7 +98,9 @@ with gr.Blocks(css=css) as Tryon:
                 examples=garm_list_path)
         with gr.Column(elem_id = "col-right"):
             image_out = gr.Image(label="Output", show_share_button=False)
-            seed_used = gr.Number(label="Seed Used")
+            with gr.Row():
+                seed_used = gr.Number(label="Seed Used")
+                result_info = gr.Text(label="Info")
             try_button = gr.Button(value="Try-on", elem_id="button")
 
 
@@ -107,7 +115,7 @@ with gr.Blocks(css=css) as Tryon:
                 )
             randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
 
-    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used], api_name='tryon')
+    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
