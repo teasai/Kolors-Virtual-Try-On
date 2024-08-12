@@ -11,7 +11,7 @@ import json
 
 def start_tryon(person_img, garment_img, seed, randomize_seed):
     if person_img is None or garment_img is None:
-        return None, None, None, "Empty image"
+        return None, None, "Empty image"
     if randomize_seed:
         seed = random.randint(0, MAX_SEED)
     encoded_person_img = cv2.imencode('.jpg', cv2.cvtColor(person_img, cv2.COLOR_RGB2BGR))[1].tobytes()
