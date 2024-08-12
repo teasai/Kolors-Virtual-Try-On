@@ -97,14 +97,14 @@ with gr.Blocks(css=css) as Tryon:
             # category = gr.Dropdown(label="Garment category", choices=['upper_body', 'lower_body', 'dresses'],  value="upper_body")
             example = gr.Examples(
                 inputs=imgs,
-                examples_per_page=10,
+                examples_per_page=12,
                 examples=human_list_path
             )
         with gr.Column(elem_id = "col-mid"):
             garm_img = gr.Image(label="Garment image", sources='upload', type="numpy")
             example = gr.Examples(
                 inputs=garm_img,
-                examples_per_page=10,
+                examples_per_page=12,
                 examples=garm_list_path)
         with gr.Column(elem_id = "col-right"):
             image_out = gr.Image(label="Output", show_share_button=False)
