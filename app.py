@@ -142,7 +142,8 @@ with gr.Blocks(css=css) as Tryon:
             inputs=[image1, image2, image3],
             label=None,
             fn = start_tryon(image1, image2, seed, randomize_seed),
-            outputs = [image_out, seed_used, result_info]
+            outputs = [image_out, seed_used, result_info],
+            cache_examples = "lazy"
         )
 
 
