@@ -10,6 +10,8 @@ import json
 
 
 def start_tryon(person_img, garment_img, seed, randomize_seed):
+    if person_img == None or garment_img == None:
+        return None, None, None, "Empty image"
     if randomize_seed:
         seed = random.randint(0, MAX_SEED)
     encoded_person_img = cv2.imencode('.jpg', cv2.cvtColor(person_img, cv2.COLOR_RGB2BGR))[1].tobytes()
@@ -146,7 +148,6 @@ with gr.Blocks(css=css) as Tryon:
             label=None
         )
 
-    image1.clear()
 
     image1.change(
         fn = change_imgs,
