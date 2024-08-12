@@ -134,7 +134,7 @@ with gr.Blocks(css=css) as Tryon:
             image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png", show_share_button=False)
             image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png", show_share_button=False)
             image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False)
-        gr.Examples(
+        show_case = gr.Examples(
             examples=[
                 ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
                 ["assets/examples/model2.png", "assets/examples/garment2.png", "assets/examples/result2.png"]
@@ -142,6 +142,13 @@ with gr.Blocks(css=css) as Tryon:
             inputs=[image1, image2, image3],
             label=None,
         )
+    
+    gr.on(
+        triggers = [show_case.update],
+        fn=start_tryon, 
+        inputs=[image1, image2, seed, randomize_seed], 
+        outputs=[image_out, seed_used, result_info]
+    )
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
