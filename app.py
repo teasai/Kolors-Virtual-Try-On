@@ -140,10 +140,6 @@ with gr.Blocks(css=css) as Tryon:
             ],
             inputs=[image1, image2, image3],
             label=None,
-        ).then(
-            fn=start_tryon, 
-            inputs=[image1, image2, seed, randomize_seed], 
-            outputs=[image_out, seed_used, result_info]
         )
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
