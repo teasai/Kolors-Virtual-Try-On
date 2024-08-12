@@ -136,7 +136,8 @@ with gr.Blocks(css=css) as Tryon:
             image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False)
         gr.Examples(
             examples=[
-                ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"]
+                ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
+                ["assets/examples/model2.png", "assets/examples/garment2.png", "assets/examples/result2.png"]
             ],
             inputs=[image1, image2, image3],
             label=None,

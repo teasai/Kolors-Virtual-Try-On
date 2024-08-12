@@ -40,3 +40,6 @@ assets/examples filter=lfs diff=lfs merge=lfs -text
 assets/examples/result1.png filter=lfs diff=lfs merge=lfs -text
 assets/examples/garment1.png filter=lfs diff=lfs merge=lfs -text
 assets/examples/model1.png filter=lfs diff=lfs merge=lfs -text
+assets/examples/garment2.png filter=lfs diff=lfs merge=lfs -text
+assets/examples/model2.png filter=lfs diff=lfs merge=lfs -text
+assets/examples/result2.png filter=lfs diff=lfs merge=lfs -text
