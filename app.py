@@ -144,7 +144,7 @@ with gr.Blocks(css=css) as Tryon:
         )
     
     gr.on(
-        triggers = [show_case.update],
+        triggers = [show_case.click],
         fn=start_tryon, 
         inputs=[image1, image2, seed, randomize_seed], 
         outputs=[image_out, seed_used, result_info]
