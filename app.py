@@ -131,9 +131,9 @@ with gr.Blocks(css=css) as Tryon:
     """)
     with gr.Column(elem_id = "col-showcase"):
         with gr.Row():
-            image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png", show_share_button=False, type="numpy")
-            image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png", show_share_button=False, type="numpy")
-            image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False, type="numpy")
+            image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png", show_share_button=False, type="numpy", sources=None)
+            image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png", show_share_button=False, type="numpy", sources=None)
+            image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False, type="numpy", sources=None)
         show_case = gr.Examples(
             examples=[
                 ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
@@ -143,8 +143,10 @@ with gr.Blocks(css=css) as Tryon:
             label=None
         )
 
-    gr.on(
-        triggers = [image1.change],
+    image1.change(
+        imgs = image1,
+        garm_img = image2
+    ).then(
         fn=start_tryon, 
         inputs=[image1, image2, seed, randomize_seed], 
         outputs=[image_out, seed_used, result_info]
