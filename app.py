@@ -143,6 +143,13 @@ with gr.Blocks(css=css) as Tryon:
             label=None
         )
 
+    gr.on(
+        triggers = [image1.change],
+        fn=start_tryon, 
+        inputs=[imgs, garm_img, seed, randomize_seed], 
+        outputs=[image_out, seed_used, result_info]
+    )
+
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
