@@ -84,6 +84,9 @@ def load_description(fp):
         content = f.read()
     return content
 
+def change_imgs(image1, image2):
+    return image1, image2
+
 with gr.Blocks(css=css) as Tryon:
     gr.HTML(load_description("assets/title.md"))
     with gr.Row():
@@ -144,10 +147,11 @@ with gr.Blocks(css=css) as Tryon:
         )
 
     image1.change(
-        imgs = image1,
-        garm_img = image2
+        fn = change_imgs,
+        input = [image1, image2],
+        outputs = [imgs, garm_img]
     ).then(
-        fn=start_tryon, 
+        fn = start_tryon, 
         inputs=[image1, image2, seed, randomize_seed], 
         outputs=[image_out, seed_used, result_info]
     )
