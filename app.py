@@ -146,7 +146,7 @@ with gr.Blocks(css=css) as Tryon:
     gr.on(
         triggers = [image1.change],
         fn=start_tryon, 
-        inputs=[imgs, garm_img, seed, randomize_seed], 
+        inputs=[image1, image2, seed, randomize_seed], 
         outputs=[image_out, seed_used, result_info]
     )
 
