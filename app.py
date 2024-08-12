@@ -146,6 +146,8 @@ with gr.Blocks(css=css) as Tryon:
             label=None
         )
 
+    image1.clear()
+
     image1.change(
         fn = change_imgs,
         inputs = [image1, image2],
