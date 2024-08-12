@@ -131,9 +131,9 @@ with gr.Blocks(css=css) as Tryon:
     """)
     with gr.Column(elem_id = "col-showcase"):
         with gr.Row():
-            image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png", show_share_button=False)
-            image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png", show_share_button=False)
-            image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False)
+            image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png", show_share_button=False, type="numpy")
+            image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png", show_share_button=False, type="numpy")
+            image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False, type="numpy")
         show_case = gr.Examples(
             examples=[
                 ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
