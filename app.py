@@ -148,7 +148,7 @@ with gr.Blocks(css=css) as Tryon:
 
     image1.change(
         fn = change_imgs,
-        input = [image1, image2],
+        inputs = [image1, image2],
         outputs = [imgs, garm_img]
     ).then(
         fn = start_tryon, 
