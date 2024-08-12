@@ -10,7 +10,7 @@ import json
 
 
 def start_tryon(person_img, garment_img, seed, randomize_seed):
-    if person_img.all() == None or garment_img.all() == None:
+    if person_img is None or garment_img is None:
         return None, None, None, "Empty image"
     if randomize_seed:
         seed = random.randint(0, MAX_SEED)
