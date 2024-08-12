@@ -140,10 +140,7 @@ with gr.Blocks(css=css) as Tryon:
                 ["assets/examples/model2.png", "assets/examples/garment2.png", "assets/examples/result2.png"]
             ],
             inputs=[image1, image2, image3],
-            label=None,
-            fn = start_tryon(imgs, garm_img, seed, randomize_seed),
-            outputs = [image_out, seed_used, result_info],
-            cache_examples = "lazy"
+            label=None
         )
 
 
