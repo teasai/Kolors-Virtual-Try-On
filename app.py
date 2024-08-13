@@ -42,10 +42,10 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
             info = "Success"
         else:
-            print(response.json()['result'])
+            print(response.text)
             info = "Try again latter"
     else:
-        print(response.json()['result'])
+        print(response.text)
         info = "URL error, pleace contact the admin"
 
     return result_img, seed, info
@@ -108,7 +108,7 @@ with gr.Blocks(css=css) as Tryon:
                 examples_per_page=12,
                 examples=garm_list_path)
         with gr.Column(elem_id = "col-right"):
-            image_out = gr.Image(label="Output", show_share_button=False)
+            image_out = gr.Image(label="Result", show_share_button=False)
             with gr.Row():
                 seed = gr.Slider(
                     label="Seed",
@@ -119,7 +119,7 @@ with gr.Blocks(css=css) as Tryon:
                 )
                 randomize_seed = gr.Checkbox(label="Random seed", value=True)
             with gr.Row():
-                seed_used = gr.Number(label="Seed Used")
+                seed_used = gr.Number(label="Seed used")
                 result_info = gr.Text(label="Response")
             try_button = gr.Button(value="Run", elem_id="button")
 
