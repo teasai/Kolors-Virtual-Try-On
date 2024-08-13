@@ -129,16 +129,16 @@ with gr.Blocks(css=css) as Tryon:
     gr.HTML("""
     <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
         <div>
-    <h1>Virtual try-on examples in pairs of person and garment images.</h1>
+    <h3>Virtual try-on examples in pairs of person and garment images.</h3>
         </div>
     </div>
     """)
     with gr.Column(elem_id = "col-showcase"):
         show_case = gr.Examples(
             examples=[
-                ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
                 ["assets/examples/model2.png", "assets/examples/garment2.png", "assets/examples/result2.png"],
                 ["assets/examples/model3.png", "assets/examples/garment3.png", "assets/examples/result3.png"],
+                ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
             ],
             inputs=[imgs, garm_img, image_out],
             label=None
