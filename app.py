@@ -19,7 +19,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     encoded_garment_img = cv2.imencode('.jpg', cv2.cvtColor(garment_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
 
-    url = "http://" + os.environ['tryon_url']
+    url = "https://" + os.environ['tryon_url']
     token = os.environ['token']
     
     headers = {'Content-Type': 'application/json', 'token': token}
@@ -129,7 +129,7 @@ with gr.Blocks(css=css) as Tryon:
     gr.HTML("""
     <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
         <div>
-    <h3>Virtual try-on examples in pairs of person and garment images.</h3>
+    <h2>Virtual try-on examples in pairs of person and garment images.</h2>
         </div>
     </div>
     """)
