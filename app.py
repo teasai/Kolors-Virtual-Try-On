@@ -21,9 +21,8 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     url = "https://" + os.environ['tryon_url']
     token = os.environ['token']
-    cookie = os.environ['Cookie']
     
-    headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie}
+    headers = {'Content-Type': 'application/json', 'token': token}
     data = {
         "clothImage": encoded_garment_img,
         "humanImage": encoded_person_img,
@@ -45,7 +44,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         else:
             info = "Try again latter"
     else:
-        info = "URL error"
+        info = "URL error, pleace contact the admin"
 
     return result_img, seed, info
 
@@ -74,7 +73,7 @@ css="""
 }
 #col-showcase {
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1100px;
 }
 #button {
     color: blue;
@@ -135,31 +134,15 @@ with gr.Blocks(css=css) as Tryon:
     </div>
     """)
     with gr.Column(elem_id = "col-showcase"):
-        with gr.Row():
-            image1  = gr.Image(label="Model", scale=1, value="assets/examples/model1.png", show_share_button=False, type="numpy", sources='upload')
-            image2  = gr.Image(label="Garment", scale=1, value="assets/examples/garment1.png", show_share_button=False, type="numpy", sources='upload')
-            image3  = gr.Image(label="Result", scale=1, value="assets/examples/result1.png", show_share_button=False, type="numpy", sources='upload')
         show_case = gr.Examples(
             examples=[
                 ["assets/examples/model1.png", "assets/examples/garment1.png", "assets/examples/result1.png"],
                 ["assets/examples/model2.png", "assets/examples/garment2.png", "assets/examples/result2.png"],
                 ["assets/examples/model3.png", "assets/examples/garment3.png", "assets/examples/result3.png"],
             ],
-            inputs=[image1, image2, image3],
+            inputs=[imgs, garm_img, image_out],
             label=None
         )
-
-
-    image1.change(
-        fn = change_imgs,
-        inputs = [image1, image2],
-        outputs = [imgs, garm_img]
-    ).then(
-        fn = start_tryon, 
-        inputs=[image1, image2, seed, randomize_seed], 
-        outputs=[image_out, seed_used, result_info]
-    )
-
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
