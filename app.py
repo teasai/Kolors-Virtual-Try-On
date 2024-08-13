@@ -22,8 +22,9 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     url = "http://" + os.environ['tryon_url']
     token = os.environ['token']
     cookie = os.environ['Cookie']
+    referer = os.environ['referer']
 
-    headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie}
+    headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie, 'referer': referer}
     data = {
         "clothImage": encoded_garment_img,
         "humanImage": encoded_person_img,
