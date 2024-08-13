@@ -19,9 +19,10 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     encoded_garment_img = cv2.imencode('.jpg', cv2.cvtColor(garment_img, cv2.COLOR_RGB2BGR))[1].tobytes()
     encoded_garment_img = base64.b64encode(encoded_garment_img).decode('utf-8')
 
-    url = "https://" + os.environ['tryon_url']
+    url = "http://" + os.environ['tryon_url']
     token = os.environ['token']
-    
+    print(url)
+    print(token)
     headers = {'Content-Type': 'application/json', 'token': token}
     data = {
         "clothImage": encoded_garment_img,
