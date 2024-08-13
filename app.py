@@ -21,9 +21,9 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     url = "http://" + os.environ['tryon_url']
     token = os.environ['token']
-    print(url)
-    print(token)
-    headers = {'Content-Type': 'application/json', 'token': token}
+    cookie = os.environ['Cookie']
+
+    headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie}
     data = {
         "clothImage": encoded_garment_img,
         "humanImage": encoded_person_img,
@@ -33,7 +33,6 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     response = requests.post(url, headers=headers, data=json.dumps(data))
     print("response code", response.status_code)
     print(response.text)
-    print(response.content)
     result_img = None
     if response.status_code == 200:
         result = response.json()['result']
@@ -45,10 +44,8 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
             info = "Success"
         else:
-            print(response.text)
             info = "Try again latter"
     else:
-        print(response.text)
         info = "URL error, pleace contact the admin"
 
     return result_img, seed, info
