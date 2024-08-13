@@ -42,6 +42,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
             info = "Success"
         else:
+            print(response)
             info = "Try again latter"
     else:
         info = "URL error, pleace contact the admin"
