@@ -45,6 +45,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
             print(response)
             info = "Try again latter"
     else:
+        print(response)
         info = "URL error, pleace contact the admin"
 
     return result_img, seed, info
@@ -110,7 +111,7 @@ with gr.Blocks(css=css) as Tryon:
             image_out = gr.Image(label="Output", show_share_button=False)
             with gr.Row():
                 seed_used = gr.Number(label="Seed Used")
-                result_info = gr.Text(label="Info")
+                result_info = gr.Text(label="Response")
             try_button = gr.Button(value="Try-on", elem_id="button")
 
 
