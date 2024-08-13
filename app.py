@@ -110,21 +110,19 @@ with gr.Blocks(css=css) as Tryon:
         with gr.Column(elem_id = "col-right"):
             image_out = gr.Image(label="Output", show_share_button=False)
             with gr.Row():
-                seed_used = gr.Number(label="Seed Used")
-                result_info = gr.Text(label="Response")
-            try_button = gr.Button(value="Try-on", elem_id="button")
-
-
-    with gr.Column():
-        with gr.Accordion(label="Advanced Settings", open=False):
-            seed = gr.Slider(
+                seed = gr.Slider(
                     label="Seed",
                     minimum=0,
                     maximum=MAX_SEED,
                     step=1,
                     value=0,
                 )
-            randomize_seed = gr.Checkbox(label="Randomize seed", value=True)
+                randomize_seed = gr.Checkbox(label="Random seed", value=True)
+            with gr.Row():
+                seed_used = gr.Number(label="Seed Used")
+                result_info = gr.Text(label="Response")
+            try_button = gr.Button(value="Run", elem_id="button")
+
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
 
