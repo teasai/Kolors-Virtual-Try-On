@@ -95,11 +95,29 @@ with gr.Blocks(css=css) as Tryon:
     gr.HTML(load_description("assets/title.md"))
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
-            gr.Markdown("            Step 1.  Upload a person image. ⬇️")
+            gr.HTML("""
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                <div>
+            <h2>Step 1.  Upload a person image. ⬇️</h2>
+                </div>
+            </div>
+            """)
         with gr.Column(elem_id = "col-mid"):
-            gr.Markdown("            Step 2. Upload a garment image. ⬇️")
+            gr.HTML("""
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                <div>
+            <h2>Step 2. Upload a garment image. ⬇️</h2>
+                </div>
+            </div>
+            """)
         with gr.Column(elem_id = "col-right"):
-            gr.Markdown("             Step 3. Press the “Run” button to get try-on results.")
+            gr.HTML("""
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                <div>
+            <h2>Step 3. Press the “Run” button to get try-on results.</h2>
+                </div>
+            </div>
+            """)
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
             imgs = gr.Image(label="Person image", sources='upload', type="numpy")
