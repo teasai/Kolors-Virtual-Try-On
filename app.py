@@ -7,9 +7,11 @@ import random
 import base64
 import requests
 import json
+import time
 
 
 def start_tryon(person_img, garment_img, seed, randomize_seed):
+    start_time = time.time()
     if person_img is None or garment_img is None:
         return None, None, "Empty image"
     if randomize_seed:
@@ -32,7 +34,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     }
 
     print("post")
-    response = requests.post(url, headers=headers, data=json.dumps(data), timeout=60)
+    response = requests.post(url, headers=headers, data=json.dumps(data), timeout=50)
     print("response code", response.status_code)
     result_img = None
     if response.status_code == 200:
@@ -49,6 +51,8 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     else:
         print(response.text)
         info = "URL error, pleace contact the admin"
+    end_time = time.time()
+    print(f"time used: {end_time-start_time}")
 
     return result_img, seed, info
 
