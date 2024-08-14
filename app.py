@@ -33,24 +33,30 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         "seed": seed
     }
 
-    print("post")
-    response = requests.post(url, headers=headers, data=json.dumps(data), timeout=50)
-    print("response code", response.status_code)
     result_img = None
-    if response.status_code == 200:
-        result = response.json()['result']
-        status = result['status']
-        if status == "success":
-            result = base64.b64decode(result['result'])
-            result_np = np.frombuffer(result, np.uint8)
-            result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
-            result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
-            info = "Success"
+    try:
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=50)
+        print("response code", response.status_code)
+        if response.status_code == 200:
+            result = response.json()['result']
+            status = result['status']
+            if status == "success":
+                result = base64.b64decode(result['result'])
+                result_np = np.frombuffer(result, np.uint8)
+                result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
+                result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
+                info = "Success"
+            else:
+                info = "Try again latter"
         else:
-            info = "Try again latter"
-    else:
-        print(response.text)
-        info = "URL error, pleace contact the admin"
+            print(response.text)
+            info = "URL error, pleace contact the admin"
+    except requests.exceptions.ReadTimeout:
+        print("timeout")
+        info = "Too many users, please try again later"
+    except Exception as err:
+        print(f"其他错误: {err}")
+        info = "Error, pleace contact the admin"
     end_time = time.time()
     print(f"time used: {end_time-start_time}")
 
