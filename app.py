@@ -153,14 +153,14 @@ with gr.Blocks(css=css) as Tryon:
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
 
-    gr.HTML("""
-    <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
-        <div>
-    <h2>Virtual try-on examples in pairs of person and garment images.</h2>
-        </div>
-    </div>
-    """)
     with gr.Column(elem_id = "col-showcase"):
+        gr.HTML("""
+        <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+            <div>
+        <h2>Virtual try-on examples in pairs of person and garment images.</h2>
+            </div>
+        </div>
+        """)
         show_case = gr.Examples(
             examples=[
                 ["assets/examples/model2.png", "assets/examples/garment2.png", "assets/examples/result2.png"],
