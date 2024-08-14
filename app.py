@@ -32,7 +32,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     }
 
     print("post")
-    response = requests.post(url, headers=headers, data=json.dumps(data))
+    response = requests.post(url, headers=headers, data=json.dumps(data), timeout=120)
     print("response code", response.status_code)
     result_img = None
     if response.status_code == 200:
