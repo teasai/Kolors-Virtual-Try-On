@@ -31,6 +31,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         "seed": seed
     }
 
+    print("post")
     response = requests.post(url, headers=headers, data=json.dumps(data))
     print("response code", response.status_code)
     result_img = None
