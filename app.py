@@ -33,7 +33,6 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
     print("response code", response.status_code)
-    print(response.text)
     result_img = None
     if response.status_code == 200:
         result = response.json()['result']
@@ -47,6 +46,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         else:
             info = "Try again latter"
     else:
+        print(response.text)
         info = "URL error, pleace contact the admin"
 
     return result_img, seed, info
@@ -95,6 +95,7 @@ with gr.Blocks(css=css) as Tryon:
     gr.HTML(load_description("assets/title.md"))
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
+            gr.Markdown("###Step 1.  Upload a person image. ⬇️")
             imgs = gr.Image(label="Person image", sources='upload', type="numpy")
             # category = gr.Dropdown(label="Garment category", choices=['upper_body', 'lower_body', 'dresses'],  value="upper_body")
             example = gr.Examples(
@@ -103,12 +104,15 @@ with gr.Blocks(css=css) as Tryon:
                 examples=human_list_path
             )
         with gr.Column(elem_id = "col-mid"):
+            gr.Markdown("###Step 2. Upload a garment image. ⬇️")
             garm_img = gr.Image(label="Garment image", sources='upload', type="numpy")
             example = gr.Examples(
                 inputs=garm_img,
                 examples_per_page=12,
-                examples=garm_list_path)
+                examples=garm_list_path
+            )
         with gr.Column(elem_id = "col-right"):
+            gr.Markdown("###Step 3. Press the “Run” button to get try-on results.")
             image_out = gr.Image(label="Result", show_share_button=False)
             with gr.Row():
                 seed = gr.Slider(
