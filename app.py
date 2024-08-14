@@ -95,11 +95,11 @@ with gr.Blocks(css=css) as Tryon:
     gr.HTML(load_description("assets/title.md"))
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
-            gr.Markdown("### Step 1.  Upload a person image. ⬇️")
+            gr.Markdown("## Step 1.  Upload a person image. ⬇️")
         with gr.Column(elem_id = "col-mid"):
-            gr.Markdown("### Step 2. Upload a garment image. ⬇️")
+            gr.Markdown("## Step 2. Upload a garment image. ⬇️")
         with gr.Column(elem_id = "col-right"):
-            gr.Markdown("### Step 3. Press the “Run” button to get try-on results.")
+            gr.Markdown("## Step 3. Press the “Run” button to get try-on results.")
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
             imgs = gr.Image(label="Person image", sources='upload', type="numpy")
