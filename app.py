@@ -25,6 +25,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     token = os.environ['token']
     cookie = os.environ['Cookie']
     referer = os.environ['referer']
+    http_proxy = os.environ['http_proxy']
 
     headers = {'Content-Type': 'application/json', 'token': token, 'Cookie': cookie, 'referer': referer}
     data = {
@@ -36,6 +37,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     result_img = None
     try:
         session = requests.Session()
+        session.proxies = {"http": http_proxy}
         response = session.post(url, headers=headers, data=json.dumps(data), timeout=60)
         print("response code", response.status_code)
         if response.status_code == 200:
