@@ -75,15 +75,15 @@ human_list_path = [os.path.join(example_path,"human",human) for human in human_l
 css="""
 #col-left {
     margin: 0 auto;
-    max-width: 380px;
+    max-width: 420px;
 }
 #col-mid {
     margin: 0 auto;
-    max-width: 380px;
+    max-width: 420px;
 }
 #col-right {
     margin: 0 auto;
-    max-width: 520px;
+    max-width: 420px;
 }
 #col-showcase {
     margin: 0 auto;
@@ -184,4 +184,4 @@ with gr.Blocks(css=css) as Tryon:
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
-Tryon.launch()
+Tryon.queue(max_size=10).launch()
