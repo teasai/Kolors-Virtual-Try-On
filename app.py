@@ -45,8 +45,9 @@ def tryon(person_img, garment_img, seed, randomize_seed):
     post_end_time = time.time()
     print(f"time used: {post_end_time-post_start_time}")
 
+    time.sleep(10)
     get_start_time =time.time()
-    Max_Retry = 3
+    Max_Retry = 4
     for i in range(Max_Retry):
         time.sleep(3)
         try:
