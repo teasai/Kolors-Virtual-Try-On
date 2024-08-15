@@ -50,7 +50,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
     for i in range(Max_Retry):
         time.sleep(3)
         try:
-            url = "http://" + os.environ['tryon_url'] + "Query?" + uuid
+            url = "http://" + os.environ['tryon_url'] + "Query?taskid=" + uuid
             response = requests.get(url, headers=headers, timeout=10)
             print("get response code", response.status_code)
             print(response.text)
