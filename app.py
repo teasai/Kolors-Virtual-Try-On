@@ -32,7 +32,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         "seed": seed
     }
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=20)
         print("post response code", response.status_code)
         if response.status_code == 200:
             result = response.json()['result']
@@ -48,10 +48,12 @@ def tryon(person_img, garment_img, seed, randomize_seed):
     get_start_time =time.time()
     Max_Retry = 3
     for i in range(Max_Retry):
+        time.sleep(3)
         try:
             url = "http://" + os.environ['tryon_url'] + "Query?" + uuid
             response = requests.get(url, headers=headers, timeout=10)
             print("get response code", response.status_code)
+            print(response.text)
             if response.status_code == 200:
                 result = response.json()['result']
                 status = result['status']
@@ -69,14 +71,10 @@ def tryon(person_img, garment_img, seed, randomize_seed):
             print("timeout")
             info = "Too many users, please try again later"
             raise gr.Error("Too many users, please try again later")
-        time.sleep(3)
     get_end_time = time.time()
     print(f"time used: {get_end_time-get_start_time}")
 
     return result_img, seed, info
-    
-
-
 
 def start_tryon(person_img, garment_img, seed, randomize_seed):
     start_time = time.time()
