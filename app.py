@@ -32,12 +32,12 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         "seed": seed
     }
     response = requests.post(url, headers=headers, data=json.dumps(data), timeout=40)
-    print("post code", response.status_code)
+    print("post response code", response.status_code)
     if response.status_code == 200:
         result = response.json()['result']
         status = result['status']
         if status == "success":
-            uuid = result['uuid']
+            uuid = result['result']
             print(uuid)
 
     try:
@@ -45,7 +45,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         session = requests.Session()
         session.mount("http://",  HTTPAdapter(max_retries=3))
         response = session.get(url, headers=headers, timeout=10)
-        print("response code", response.status_code)
+        print("get response code", response.status_code)
         if response.status_code == 200:
             result = response.json()['result']
             status = result['status']
@@ -224,7 +224,7 @@ with gr.Blocks(css=css) as Tryon:
                 seed_used = gr.Number(label="Seed used")
                 result_info = gr.Text(label="Response")
             try_button = gr.Button(value="Run", elem_id="button")
-            test_button = gr.Button(value="Text", elem_id="button")
+            test_button = gr.Button(value="Test", elem_id="button")
 
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon',concurrency_limit=10)
