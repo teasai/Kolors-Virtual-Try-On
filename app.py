@@ -162,7 +162,7 @@ with gr.Blocks(css=css) as Tryon:
             try_button = gr.Button(value="Run", elem_id="button")
 
 
-    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
+    try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon',concurrency_limit=10)
 
     with gr.Column(elem_id = "col-showcase"):
         gr.HTML("""
@@ -184,4 +184,4 @@ with gr.Blocks(css=css) as Tryon:
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
-Tryon.queue(concurrency_count = 3, max_size = 10).launch()
+Tryon.queue(max_size = 20).launch(max_threads = 5)
