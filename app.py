@@ -45,14 +45,13 @@ def tryon(person_img, garment_img, seed, randomize_seed):
     post_end_time = time.time()
     print(f"time used: {post_end_time-post_start_time}")
 
-    time.sleep(10)
     get_start_time =time.time()
+    time.sleep(10)
     Max_Retry = 10
     for i in range(Max_Retry):
-        time.sleep(3)
         try:
             url = "http://" + os.environ['tryon_url'] + "Query?taskId=" + uuid
-            response = requests.get(url, headers=headers, timeout=10)
+            response = requests.get(url, headers=headers, timeout=15)
             print("get response code", response.status_code)
             print(response.text)
             if response.status_code == 200:
@@ -71,6 +70,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         except requests.exceptions.ReadTimeout:
             print("timeout")
             info = "Too many users, please try again later"
+        time.sleep(1)
     get_end_time = time.time()
     print(f"time used: {get_end_time-get_start_time}")
 
