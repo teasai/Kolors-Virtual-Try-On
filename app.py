@@ -184,4 +184,4 @@ with gr.Blocks(css=css) as Tryon:
 
 ip = requests.get('http://ifconfig.me/ip', timeout=1).text.strip()
 print("ip address", ip)
-Tryon.queue(max_threads = 3, max_size = 10).launch()
+Tryon.queue(concurrency_count = 3, max_size = 10).launch()
