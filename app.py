@@ -55,6 +55,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
     except requests.exceptions.ReadTimeout:
         print("timeout")
         info = "Too many users, please try again later"
+        raise gr.Error("Too many users, please try again later")
     except Exception as err:
         print(f"其他错误: {err}")
         info = "Error, pleace contact the admin"
