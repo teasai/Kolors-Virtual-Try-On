@@ -40,7 +40,6 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         print("response code", response.status_code)
         if response.status_code == 200:
             result = response.json()['result']
-            print(result)
             status = result['status']
             if status == "success":
                 result = base64.b64decode(result['result'])
