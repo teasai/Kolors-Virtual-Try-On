@@ -11,7 +11,7 @@ import time
 from requests.adapters import HTTPAdapter
 
 def tryon(person_img, garment_img, seed, randomize_seed):
-    start_time = time.time()
+    post_start_time = time.time()
     if person_img is None or garment_img is None:
         return None, None, "Empty image"
     if randomize_seed:
@@ -31,41 +31,47 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         "humanImage": encoded_person_img,
         "seed": seed
     }
-    response = requests.post(url, headers=headers, data=json.dumps(data), timeout=40)
-    print("post response code", response.status_code)
-    if response.status_code == 200:
-        result = response.json()['result']
-        status = result['status']
-        if status == "success":
-            uuid = result['result']
-            print(uuid)
-
     try:
-        url = "http://" + os.environ['tryon_url'] + "Query?" + uuid
-        session = requests.Session()
-        session.mount("http://",  HTTPAdapter(max_retries=3))
-        response = session.get(url, headers=headers, timeout=10)
-        print("get response code", response.status_code)
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
+        print("post response code", response.status_code)
         if response.status_code == 200:
             result = response.json()['result']
             status = result['status']
             if status == "success":
-                result = base64.b64decode(result['result'])
-                result_np = np.frombuffer(result, np.uint8)
-                result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
-                result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
-                info = "Success"
+                uuid = result['result']
+                print(uuid)
+    finally:
+        pass
+    post_end_time = time.time()
+    print(f"time used: {post_end_time-post_start_time}")
+
+    get_start_time =time.time()
+    Max_Retry = 3
+    for i in range(Max_Retry):
+        try:
+            url = "http://" + os.environ['tryon_url'] + "Query?" + uuid
+            response = requests.get(url, headers=headers, timeout=10)
+            print("get response code", response.status_code)
+            if response.status_code == 200:
+                result = response.json()['result']
+                status = result['status']
+                if status == "success":
+                    result = base64.b64decode(result['result'])
+                    result_np = np.frombuffer(result, np.uint8)
+                    result_img = cv2.imdecode(result_np, cv2.IMREAD_UNCHANGED)
+                    result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
+                    info = "Success"
+                    break
             else:
-                info = "Try again latter"
-        else:
-            print(response.text)
-            info = "URL error, pleace contact the admin"
-    except requests.exceptions.ReadTimeout:
-        print("timeout")
-        info = "Too many users, please try again later"
-        raise gr.Error("Too many users, please try again later")
-    end_time = time.time()
-    print(f"time used: {end_time-start_time}")
+                print(response.text)
+                info = "URL error, pleace contact the admin"
+        except requests.exceptions.ReadTimeout:
+            print("timeout")
+            info = "Too many users, please try again later"
+            raise gr.Error("Too many users, please try again later")
+        time.sleep(3)
+    get_end_time = time.time()
+    print(f"time used: {get_end_time-get_start_time}")
 
     return result_img, seed, info
     
