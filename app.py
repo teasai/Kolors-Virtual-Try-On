@@ -32,7 +32,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         "seed": seed
     }
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=20)
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=25)
         print("post response code", response.status_code)
         if response.status_code == 200:
             result = response.json()['result']
@@ -46,7 +46,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
     print(f"time used: {post_end_time-post_start_time}")
 
     get_start_time =time.time()
-    time.sleep(10)
+    time.sleep(9)
     Max_Retry = 10
     for i in range(Max_Retry):
         try:
