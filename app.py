@@ -47,7 +47,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
 
     time.sleep(10)
     get_start_time =time.time()
-    Max_Retry = 4
+    Max_Retry = 10
     for i in range(Max_Retry):
         time.sleep(3)
         try:
@@ -71,7 +71,6 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         except requests.exceptions.ReadTimeout:
             print("timeout")
             info = "Too many users, please try again later"
-            raise gr.Error("Too many users, please try again later")
     get_end_time = time.time()
     print(f"time used: {get_end_time-get_start_time}")
 
