@@ -38,6 +38,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         response = requests.post(url, headers=headers, data=json.dumps(data), timeout=120)
         print("response code", response.status_code)
         if response.status_code == 200:
+            print(response.text)
             result = response.json()['result']
             print(result)
             status = result['status']
