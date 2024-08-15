@@ -64,6 +64,8 @@ def tryon(person_img, garment_img, seed, randomize_seed):
                     result_img = cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR)
                     info = "Success"
                     break
+                elif status == "error":
+                    raise gr.Error("Too many users, please try again later")
             else:
                 print(response.text)
                 info = "URL error, pleace contact the admin"
@@ -227,8 +229,8 @@ with gr.Blocks(css=css) as Tryon:
             with gr.Row():
                 seed_used = gr.Number(label="Seed used")
                 result_info = gr.Text(label="Response")
-            try_button = gr.Button(value="Run", elem_id="button")
-            test_button = gr.Button(value="Test", elem_id="button")
+            # try_button = gr.Button(value="Run", elem_id="button")
+            test_button = gr.Button(value="Run", elem_id="button")
 
 
     try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon',concurrency_limit=10)
