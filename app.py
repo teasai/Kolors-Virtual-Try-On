@@ -39,6 +39,7 @@ def start_tryon(person_img, garment_img, seed, randomize_seed):
         print("response code", response.status_code)
         if response.status_code == 200:
             result = response.json()['result']
+            print(result)
             status = result['status']
             if status == "success":
                 result = base64.b64decode(result['result'])
@@ -75,15 +76,15 @@ human_list_path = [os.path.join(example_path,"human",human) for human in human_l
 css="""
 #col-left {
     margin: 0 auto;
-    max-width: 420px;
+    max-width: 430px;
 }
 #col-mid {
     margin: 0 auto;
-    max-width: 420px;
+    max-width: 430px;
 }
 #col-right {
     margin: 0 auto;
-    max-width: 420px;
+    max-width: 430px;
 }
 #col-showcase {
     margin: 0 auto;
