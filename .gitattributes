@@ -46,3 +46,15 @@ assets/examples/result2.png filter=lfs diff=lfs merge=lfs -text
 assets/examples/garment3.png filter=lfs diff=lfs merge=lfs -text
 assets/examples/model3.png filter=lfs diff=lfs merge=lfs -text
 assets/examples/result3.png filter=lfs diff=lfs merge=lfs -text
+assets/human/003.png filter=lfs diff=lfs merge=lfs -text
+assets/human/006.png filter=lfs diff=lfs merge=lfs -text
+assets/human/008.jpg filter=lfs diff=lfs merge=lfs -text
+assets/human/009.jpg filter=lfs diff=lfs merge=lfs -text
+assets/human/001.png filter=lfs diff=lfs merge=lfs -text
+assets/human/002.png filter=lfs diff=lfs merge=lfs -text
+assets/human/004.jpg filter=lfs diff=lfs merge=lfs -text
+assets/human/005.png filter=lfs diff=lfs merge=lfs -text
+assets/human/007.png filter=lfs diff=lfs merge=lfs -text
+assets/human/010.png filter=lfs diff=lfs merge=lfs -text
+assets/human/011.png filter=lfs diff=lfs merge=lfs -text
+assets/human/000.png filter=lfs diff=lfs merge=lfs -text
