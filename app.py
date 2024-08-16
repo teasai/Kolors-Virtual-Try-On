@@ -49,6 +49,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
     get_start_time =time.time()
     time.sleep(9)
     Max_Retry = 10
+    result_img = None
     for i in range(Max_Retry):
         try:
             url = "http://" + os.environ['tryon_url'] + "Query?taskId=" + uuid
