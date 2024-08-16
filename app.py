@@ -179,7 +179,7 @@ with gr.Blocks(css=css) as Tryon:
             gr.HTML("""
             <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 24px;">
                 <div>
-            <h3>Step 1.  Upload a person image ⬇️</h2>
+                Step 1.  Upload a person image ⬇️
                 </div>
             </div>
             """)
@@ -187,7 +187,7 @@ with gr.Blocks(css=css) as Tryon:
             gr.HTML("""
             <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
                 <div>
-            <h3>Step 2. Upload a garment image ⬇️</h2>
+                Step 2. Upload a garment image ⬇️
                 </div>
             </div>
             """)
@@ -195,7 +195,7 @@ with gr.Blocks(css=css) as Tryon:
             gr.HTML("""
             <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
                 <div>
-            <h3>Step 3. Press “Run” to get try-on results</h2>
+                Step 3. Press “Run” to get try-on results
                 </div>
             </div>
             """)
