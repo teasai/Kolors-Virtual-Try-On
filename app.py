@@ -239,7 +239,7 @@ with gr.Blocks(css=css) as Tryon:
     with gr.Column(elem_id = "col-showcase"):
         gr.HTML("""
         <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 20px;">
-            <p> </p>
+            <div> </div>
             <br>
             <div>
             Virtual try-on examples in pairs of person and garment images
