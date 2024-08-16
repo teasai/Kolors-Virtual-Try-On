@@ -177,7 +177,7 @@ with gr.Blocks(css=css) as Tryon:
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
             gr.HTML("""
-            <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 24px;">
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 20px;">
                 <div>
                 Step 1.  Upload a person image ⬇️
                 </div>
@@ -185,7 +185,7 @@ with gr.Blocks(css=css) as Tryon:
             """)
         with gr.Column(elem_id = "col-mid"):
             gr.HTML("""
-            <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 20px;">
                 <div>
                 Step 2. Upload a garment image ⬇️
                 </div>
@@ -193,7 +193,7 @@ with gr.Blocks(css=css) as Tryon:
             """)
         with gr.Column(elem_id = "col-right"):
             gr.HTML("""
-            <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 20px;">
                 <div>
                 Step 3. Press “Run” to get try-on results
                 </div>
@@ -238,9 +238,9 @@ with gr.Blocks(css=css) as Tryon:
 
     with gr.Column(elem_id = "col-showcase"):
         gr.HTML("""
-        <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+        <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 20px;">
             <div>
-        <h3>Virtual try-on examples in pairs of person and garment images.</h2>
+            Virtual try-on examples in pairs of person and garment images
             </div>
         </div>
         """)
