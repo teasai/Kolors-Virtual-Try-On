@@ -58,3 +58,15 @@ assets/human/007.png filter=lfs diff=lfs merge=lfs -text
 assets/human/010.png filter=lfs diff=lfs merge=lfs -text
 assets/human/011.png filter=lfs diff=lfs merge=lfs -text
 assets/human/000.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/00_upper.jpg filter=lfs diff=lfs merge=lfs -text
+assets/cloth/02_upper.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/05_dress.jpg filter=lfs diff=lfs merge=lfs -text
+assets/cloth/10_dress.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/09_upper.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/11_upper.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/01_upper.jpg filter=lfs diff=lfs merge=lfs -text
+assets/cloth/03_upper.jpg filter=lfs diff=lfs merge=lfs -text
+assets/cloth/04_dress.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/06_upper.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/07_upper.png filter=lfs diff=lfs merge=lfs -text
+assets/cloth/08_upper.png filter=lfs diff=lfs merge=lfs -text
