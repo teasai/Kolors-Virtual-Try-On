@@ -55,6 +55,7 @@ def tryon(person_img, garment_img, seed, randomize_seed):
             url = "http://" + os.environ['tryon_url'] + "Query?taskId=" + uuid
             response = requests.get(url, headers=headers, timeout=15)
             print("get response code", response.status_code)
+            print(response.text)
             if response.status_code == 200:
                 result = response.json()['result']
                 status = result['status']
