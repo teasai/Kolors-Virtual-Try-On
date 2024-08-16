@@ -177,7 +177,7 @@ with gr.Blocks(css=css) as Tryon:
     with gr.Row():
         with gr.Column(elem_id = "col-left"):
             gr.HTML("""
-            <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+            <div style="display: flex; justify-content: center; align-items: center; text-align: center; font-size: 24px;">
                 <div>
             <h3>Step 1.  Upload a person image ⬇️</h2>
                 </div>
