@@ -40,8 +40,8 @@ def tryon(person_img, garment_img, seed, randomize_seed):
             if status == "success":
                 uuid = result['result']
                 print(uuid)
-    except requests.exceptions.ReadTimeout:
-        print("post timeout")
+    except Exception as err:
+        print(f"Error: {err}")
         raise gr.Error("Too many users, please try again later")
     post_end_time = time.time()
     print(f"post time used: {post_end_time-post_start_time}")
