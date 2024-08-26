@@ -1,5 +1,6 @@
 import os
 import cv2
+import spaces
 from PIL import Image
 import gradio as gr
 import numpy as np
@@ -8,8 +9,8 @@ import base64
 import requests
 import json
 import time
-from requests.adapters import HTTPAdapter
 
+@spaces.GPU
 def tryon(person_img, garment_img, seed, randomize_seed):
     post_start_time = time.time()
     if person_img is None or garment_img is None:
@@ -73,6 +74,8 @@ def tryon(person_img, garment_img, seed, randomize_seed):
         except requests.exceptions.ReadTimeout:
             print("timeout")
             info = "Too many users, please try again later"
+        except Exception as err:
+            print(f"Error: {err}")
         time.sleep(1)
     get_end_time = time.time()
     print(f"get time used: {get_end_time-get_start_time}")
