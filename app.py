@@ -10,7 +10,7 @@ import requests
 import json
 import time
 
-@spaces.GPU
+
 def tryon(person_img, garment_img, seed, randomize_seed):
     post_start_time = time.time()
     if person_img is None or garment_img is None:
