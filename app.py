@@ -238,7 +238,7 @@ with gr.Blocks(css=css) as Tryon:
 
 
     # try_button.click(fn=start_tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon',concurrency_limit=10)
-    test_button.click(fn=tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon')
+    test_button.click(fn=tryon, inputs=[imgs, garm_img, seed, randomize_seed], outputs=[image_out, seed_used, result_info], api_name='tryon', concurrency_limit=40)
 
     with gr.Column(elem_id = "col-showcase"):
         gr.HTML("""
