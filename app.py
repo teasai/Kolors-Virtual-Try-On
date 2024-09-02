@@ -1,7 +1,5 @@
 import os
 import cv2
-import spaces
-from PIL import Image
 import gradio as gr
 import numpy as np
 import random
